@@ -47,7 +47,7 @@ if __name__ == "__main__":
     engine = connect_db()
 
     # extracting data
-    print("extracting data")
+    logging.info("Extracting dataset")
     sale = sale(engine)
     machine_rent = machine_rent(engine)
     advisory = advisory(engine)
@@ -55,4 +55,3 @@ if __name__ == "__main__":
     processing = processing(engine)
     machine_purchase = machine_purchase(engine)
     expense = expense(engine)
-    print(expense.head())

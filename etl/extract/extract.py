@@ -33,8 +33,6 @@ def sale(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s",
-            level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -66,8 +64,6 @@ def machine_rent(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s",
-            level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -96,8 +92,6 @@ def advisory(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s",
-            level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -129,7 +123,6 @@ def purchase(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s", level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -158,7 +151,6 @@ def processing(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s", level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -189,8 +181,6 @@ def machine_purchase(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s",
-            level=logging.ERROR)
         logging.error(e)
         
     return df
@@ -219,8 +209,6 @@ def expense(engine):
                 """
             df = pd.read_sql(query, conn)
     except Exception as e:
-        logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(levelname)s - %(message)s",
-            level=logging.ERROR)
         logging.error(e)
         
     return df
