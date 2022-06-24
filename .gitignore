@@ -2,3 +2,4 @@ venv
 *.egg*
 .env
 log
+*/__pycache__/*
