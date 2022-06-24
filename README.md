@@ -12,7 +12,7 @@ The data sources are stored in MySQL database. The list of sources are given bel
 7. **`gds_sale_transactions`**: This dataset contains transactional data originating from advisory service module. Sale is an income generating activity. Data gets appended everyday.
 8. **`gds_stocks`**: This dataset contains transactional data originating from advisory service module. The dataset gets refreshed everyday and contains inventory level for the day. The remaining inventory can be considered asset for a business.
 9. **`gds_users_information`**: This dataset contains transactional data originating from advisory service module. The dataset gets refreshed everyday and contains user information including drop-off date, start date and other relevant information.
-## 2. Transform the Dataset
+## 2. Transform Dataset
 The dataset is transformed based on the business requirements. The business requirements are listed below:
 1. **Financial Analytics**  
     * Number of Unique Countries
@@ -49,3 +49,7 @@ The dataset is transformed based on the business requirements. The business requ
     * Number of transactions with phone number
     * Percentage of transactions with gender information
     * Transactions that are potentially anomalous
+## 3. Load Dataset
+The transformed dataset will be stored in MySQL database.
+___
+
