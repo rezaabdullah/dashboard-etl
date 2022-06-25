@@ -11,6 +11,7 @@ from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
 from transform import transform_sale, transform_advisory, transform_expense, \
     transform_machine_purchase, transform_machine_rent, transform_processing, \
     transform_purchase
+from transform import denormalize
 
 # database toolkit
 from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
@@ -50,6 +51,7 @@ def connect_db():
         logging.error(e)
 
 if __name__ == "__main__":
+    # connect to the database
     engine = connect_db()
 
     # extracting dataset
@@ -61,7 +63,6 @@ if __name__ == "__main__":
     processing = get_processing(engine)
     machine_purchase = get_machine_purchase(engine)
     expense = get_expense(engine)
-    print(sale.shape)
 
     # transform datasets
     logging.info("Transforming dataset")
@@ -72,4 +73,8 @@ if __name__ == "__main__":
     processing = transform_processing(processing)
     machine_purchase = transform_machine_purchase(machine_purchase)
     expense = transform_expense(expense)
-    print(sale.shape)
+
+    # denormalize dataset
+    denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    # print(df.shape)
