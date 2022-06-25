@@ -6,7 +6,7 @@ logging.basicConfig(filename="./log", filemode="a", format="%(asctime)s - %(leve
     level=logging.ERROR)
 
 # extract sale dataset
-def sale(engine):
+def get_sale(engine):
     """
     read gds_sale_transactions table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -17,16 +17,17 @@ def sale(engine):
         with engine.connect() as conn:
             query = """
                 SELECT country_name, parent_name, user_type, user_region, user_name, user_id, market_type,
-                    business_category, category, product, transaction_date, transaction_id, customer_id, customer_name,
-                    customer_mobile, customer_gender, product_amount, net_amount, due_amount, cogs_amount, version,
-                    currency_exchange_rate
+                    business_category, category, product, transaction_date, transaction_id, customer_id,
+                    customer_name, customer_mobile, customer_gender, product_amount, net_amount, due_amount,
+                    cogs_amount, version, currency_exchange_rate
                 FROM (
                     SELECT distinct user_id, country_name, user_name, user_type, parent_name, transaction_id,
                         transaction_date, customer_id, customer_name, customer_mobile, customer_gender,
                         market_type, sale_type, business_category, category_id, category, product_id, product,
                         unit_type, attribute, quantity, unit_price, product_amount, sub_total_amount,
-                        commission_amount, discount_amount, net_amount, paid_amount, due_amount, due_receivable_date,
-                        version, user_join_date, user_region, customer_join_date, currency_exchange_rate, cogs_amount
+                        commission_amount, discount_amount, net_amount, paid_amount, due_amount,
+                        due_receivable_date, version, user_join_date, user_region, customer_join_date,
+                        currency_exchange_rate, cogs_amount
                     FROM gds_database.gds_sale_transactions
                     WHERE year(transaction_date) >= 2019
                 ) sale;
@@ -38,7 +39,7 @@ def sale(engine):
     return df
 
 # extract machine rent dataset
-def machine_rent(engine):
+def get_machine_rent(engine):
     """
     read gds_machine_rent_transactions table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -69,7 +70,7 @@ def machine_rent(engine):
     return df
 
 # extract advisory dataset
-def advisory(engine):
+def get_advisory(engine):
     """
     read advisory table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -97,7 +98,7 @@ def advisory(engine):
     return df
 
 # extract purchase dataset
-def purchase(engine):
+def get_purchase(engine):
     """
     read purchase table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -128,7 +129,7 @@ def purchase(engine):
     return df
 
 # extract processing dataset
-def processing(engine):
+def get_processing(engine):
     """
     read processing table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -156,7 +157,7 @@ def processing(engine):
     return df
 
 # extract machine purchase dataset
-def machine_purchase(engine):
+def get_machine_purchase(engine):
     """
     read machine_purchase table from sql database and returns df
     :param engine: SQLAlchemy engine object
@@ -186,7 +187,7 @@ def machine_purchase(engine):
     return df
 
 # extract expense dataset
-def expense(engine):
+def get_expense(engine):
     """
     read expense table from sql database and returns df
     :param engine: SQLAlchemy engine object
