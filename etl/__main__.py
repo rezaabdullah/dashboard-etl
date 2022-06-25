@@ -3,8 +3,9 @@ from dotenv import dotenv_values
 from pathlib import Path
 import logging
 
-from extract import sale, machine_rent, advisory, purchase, machine_purchase, \
-    processing, expense
+# extract module
+from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
+    get_machine_purchase, get_processing, get_expense
 
 # database toolkit
 from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
@@ -48,10 +49,10 @@ if __name__ == "__main__":
 
     # extracting data
     logging.info("Extracting dataset")
-    sale = sale(engine)
-    machine_rent = machine_rent(engine)
-    advisory = advisory(engine)
-    purchase = purchase(engine)
-    processing = processing(engine)
-    machine_purchase = machine_purchase(engine)
-    expense = expense(engine)
+    sale = get_sale(engine)
+    machine_rent = get_machine_rent(engine)
+    advisory = get_advisory(engine)
+    purchase = get_purchase(engine)
+    processing = get_processing(engine)
+    machine_purchase = get_machine_purchase(engine)
+    expense = get_expense(engine)
