@@ -7,6 +7,11 @@ import logging
 from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
     get_machine_purchase, get_processing, get_expense
 
+# transform module
+from transform import transform_sale, transform_advisory, transform_expense, \
+    transform_machine_purchase, transform_machine_rent, transform_processing, \
+    transform_purchase
+
 # database toolkit
 from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
     String, Date, Numeric, extract
@@ -47,7 +52,7 @@ def connect_db():
 if __name__ == "__main__":
     engine = connect_db()
 
-    # extracting data
+    # extracting dataset
     logging.info("Extracting dataset")
     sale = get_sale(engine)
     machine_rent = get_machine_rent(engine)
@@ -56,3 +61,15 @@ if __name__ == "__main__":
     processing = get_processing(engine)
     machine_purchase = get_machine_purchase(engine)
     expense = get_expense(engine)
+    print(sale.shape)
+
+    # transform datasets
+    logging.info("Transforming dataset")
+    sale = transform_sale(sale)
+    machine_rent = transform_machine_rent(machine_rent)
+    advisory = transform_advisory(advisory)
+    purchase = transform_purchase(purchase)
+    processing = transform_processing(processing)
+    machine_purchase = transform_machine_purchase(machine_purchase)
+    expense = transform_expense(expense)
+    print(sale.shape)
