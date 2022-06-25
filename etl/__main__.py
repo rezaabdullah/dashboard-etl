@@ -75,6 +75,5 @@ if __name__ == "__main__":
     expense = transform_expense(expense)
 
     # denormalize dataset
-    denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
-    # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
-    # print(df.shape)
+    df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    print(df.shape)
