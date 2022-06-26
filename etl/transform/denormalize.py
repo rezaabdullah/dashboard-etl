@@ -34,14 +34,16 @@ def denormalize(sale, machine_rent, advisory, purchase, machine_purchase, proces
     # filter direct cost
     direct_cost = expense[expense["expense_category"] == "Direct Cost"]
     # usd conversion
-    # direct_cost["direct_cost_usd"] = round(direct_cost["expenditure"] /
-    #     direct_cost["currency_exchange_rate"], 4)
+    direct_cost_usd = round(direct_cost["expenditure"] /
+        direct_cost["currency_exchange_rate"], 4)
+    direct_cost = direct_cost.assign(direct_cost_usd = direct_cost_usd)
 
-    # # filter indirect cost
-    # indirect_cost = expense[expense["expense_category"] == "Indirect Cost"]
-    # # usd conversion
-    # indirect_cost["indirect_cost_usd"] = round(indirect_cost["expenditure"] /
-    #     indirect_cost["currency_exchange_rate"], 4)
+    # filter indirect cost
+    indirect_cost = expense[expense["expense_category"] == "Indirect Cost"]
+    # usd conversion
+    indirect_cost_usd = round(indirect_cost["expenditure"] /
+        indirect_cost["currency_exchange_rate"], 4)
+    indirect_cost = indirect_cost.assign(indirect_cost_usd = indirect_cost_usd)
 
     # # concatenate direct and indirect cost
     # expense = pd.concat([direct_cost, indirect_cost], sort=False, ignore_index=True)

@@ -76,7 +76,6 @@ if __name__ == "__main__":
     expense = transform_expense(expense)
 
     # denormalize dataset
-    # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
-    denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
     
     # find data anomaly and filter the anomalous data
