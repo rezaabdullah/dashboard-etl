@@ -52,6 +52,4 @@ def denormalize(sale, machine_rent, advisory, purchase, machine_purchase, proces
     df = pd.concat([income, expenditure, expense], sort=False, ignore_index=True)
     df.drop(columns=["business_categories", "categories"], inplace=True)
 
-    df.to_csv("master_data.csv", index=False)
-
     return df
