@@ -45,13 +45,13 @@ def denormalize(sale, machine_rent, advisory, purchase, machine_purchase, proces
         indirect_cost["currency_exchange_rate"], 4)
     indirect_cost = indirect_cost.assign(indirect_cost_usd = indirect_cost_usd)
 
-    # # concatenate direct and indirect cost
-    # expense = pd.concat([direct_cost, indirect_cost], sort=False, ignore_index=True)
-    # expense.drop(columns=["expense_type"], inplace=True)
+    # concatenate direct and indirect cost
+    expense = pd.concat([direct_cost, indirect_cost], sort=False, ignore_index=True)
+    expense.drop(columns=["expense_type"], inplace=True)
 
-    # df = pd.concat([income, expenditure, expense], sort=False, ignore_index=True)
-    # df.drop(columns=["business_categories", "categories"], inplace=True)
+    df = pd.concat([income, expenditure, expense], sort=False, ignore_index=True)
+    df.drop(columns=["business_categories", "categories"], inplace=True)
 
-    # df.to_csv("master_data.csv", index=False)
+    df.to_csv("master_data.csv", index=False)
 
-    # return df
+    return df
