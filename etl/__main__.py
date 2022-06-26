@@ -12,6 +12,7 @@ from transform import transform_sale, transform_advisory, transform_expense, \
     transform_machine_purchase, transform_machine_rent, transform_processing, \
     transform_purchase
 from transform import denormalize
+from master_transform import transformer
 
 # database toolkit
 from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
@@ -75,5 +76,7 @@ if __name__ == "__main__":
     expense = transform_expense(expense)
 
     # denormalize dataset
-    df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
-    print(df.shape)
+    # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    
+    # find data anomaly and filter the anomalous data
