@@ -79,3 +79,4 @@ if __name__ == "__main__":
     df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
     
     # find data anomaly and filter the anomalous data
+    main_df = transformer(df)
