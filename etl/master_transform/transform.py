@@ -47,7 +47,8 @@ def transform(df):
     direct_cost = expense.loc[expense["expense_category"].isin(["Direct Cost"])]
 
     # drop transaction_category and rename expense_category to transaction_category
-    direct_cost.drop(columns=["transaction_category", "expenditure_usd"], inplace=True)
+    direct_cost.drop(columns=["transaction_category", "expenditure_usd",
+        "indirect_cost_usd", "product"], inplace=True)
     direct_cost.rename(columns={"expense_category":"transaction_category",
         "direct_cost_usd":"expenditure_usd"}, inplace=True)
 
@@ -57,7 +58,8 @@ def transform(df):
     indirect_cost = expense.loc[expense["expense_category"].isin(["Indirect Cost"])] 
 
     # drop transaction_category and rename expense_category to transaction_category
-    indirect_cost.drop(columns=["transaction_category", "expenditure_usd"], inplace=True)
+    indirect_cost.drop(columns=["transaction_category", "expenditure_usd",
+        "direct_cost_usd", "business_category", "category", "product"], inplace=True)
     indirect_cost.rename(columns={"expense_category":"transaction_category",
         "indirect_cost_usd":"expenditure_usd"}, inplace=True)
 
