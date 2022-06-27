@@ -2,6 +2,11 @@ import pandas as pd
 
 # normalize dataset for granular analysis
 def master_transform(df):
+    """
+    transform master dataset
+    :param df: main dataset
+    :return df: transformed dataset
+    """
     # filter income generating dataset i.e. sale, machine rent and advisory
     income = df.loc[df["transaction_category"].isin(["Sale", "Advisory",
         "Machinery Rental"])]
@@ -65,3 +70,22 @@ def master_transform(df):
     df = pd.concat([income, expenditure], sort=False, ignore_index=True)
 
     return df
+
+# join user dataset with master dataset
+def compile_data(main_df, user_df):
+    """
+    join two dataframe and create a unified dataset
+    :param main_df: master dataset
+    :param user_df: user dataset
+    :return df: joined dataset
+    """
+    user_main=main_df.loc[:, ["country_name", "parent_name", "user_region", "user_id",
+        "user_name", "user_type"]]
+    user_main.drop_duplicates(inplace=True)
+    user_main.to_csv("user_main.csv", index=False)
+
+    user_join = user_main.join(user_df, on="user_id", how="left") \
+        [["country_name", "parent_name", "user_region", "user_id", "user_name", "user_type",
+        "latitude", "longitude", "status"]]
+    user_join.to_csv("user_join.csv", index=False)
+    
