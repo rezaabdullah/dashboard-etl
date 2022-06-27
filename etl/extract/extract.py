@@ -224,10 +224,11 @@ def get_user(engine):
     try:
         with engine.connect() as conn:
             query = """
-                SELECT distinct *
+                SELECT *
                 FROM gds_database.gds_users_information;
                 """
             df = pd.read_sql(query, conn)
+            print(df)
     except Exception as e:
         logging.error(e)
         
