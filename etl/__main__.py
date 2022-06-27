@@ -10,7 +10,7 @@ from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
 # transform module
 from module_transform import transform_sale, transform_advisory, transform_expense, \
     transform_machine_purchase, transform_machine_rent, transform_processing, \
-    transform_purchase
+    transform_purchase, transform_user
 from module_transform import denormalize
 from master_transform import master_transform
 
@@ -75,6 +75,7 @@ if __name__ == "__main__":
     processing = transform_processing(processing)
     machine_purchase = transform_machine_purchase(machine_purchase)
     expense = transform_expense(expense)
+    user = transform_user(user)
 
     # denormalize dataset
     df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
