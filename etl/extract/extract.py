@@ -228,7 +228,6 @@ def get_user(engine):
                 FROM gds_database.gds_users_information;
                 """
             df = pd.read_sql(query, conn)
-            print(df)
     except Exception as e:
         logging.error(e)
         
