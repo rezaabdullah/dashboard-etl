@@ -8,11 +8,11 @@ from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
     get_machine_purchase, get_processing, get_expense
 
 # transform module
-from transform import transform_sale, transform_advisory, transform_expense, \
+from module_transform import transform_sale, transform_advisory, transform_expense, \
     transform_machine_purchase, transform_machine_rent, transform_processing, \
     transform_purchase
-from transform import denormalize
-from master_transform import transformer
+from module_transform import denormalize
+from master_transform import transform
 
 # database toolkit
 from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
@@ -79,4 +79,4 @@ if __name__ == "__main__":
     df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
     
     # find data anomaly and filter the anomalous data
-    main_df = transformer(df)
+    main_df = transform(df)
