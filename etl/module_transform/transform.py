@@ -269,3 +269,22 @@ def transform_expense(df):
             keep="last")
 
     return df
+
+# transform user dataset
+def transform_user(df):
+    """
+    transform user dataframe and returns df
+    :param df: actual user dataframe
+    :return df: transformed dataframe
+    """
+
+    # drop unnecessary columns
+    df.drop(columns=["id", "created_at", "updated_at"], inplace=True)
+
+    # rename columns for consistency
+    df.rename(columns={"country":"country_name", "region":"user_region",
+        "branch":"user_branch", "enterprise_name":"user_name",
+        "parent_franchisee":"parent_name", "lat":"latitude",
+        "long":"longitude"}, inplace=True)
+
+    return df
