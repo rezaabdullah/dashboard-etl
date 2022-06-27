@@ -287,4 +287,10 @@ def transform_user(df):
         "parent_franchisee":"parent_name", "lat":"latitude",
         "long":"longitude"}, inplace=True)
 
+    # define column types
+    df["user_id"] = df["user_id"].astype(str)
+    df["latitude"] = round(pd.to_numeric(df["latitude"], errors="coerce"), 6)
+    df["longitude"] = round(pd.to_numeric(df["longitude"], errors="coerce"), 6)
+    df["dropout_at"] = pd.to_datetime(df["dropout_at"], format="%Y/%m/%d")
+
     return df
