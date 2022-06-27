@@ -1,7 +1,7 @@
 import pandas as pd
 
 # normalize dataset for granular analysis
-def transformer(df):
+def transform(df):
     # filter income generating dataset i.e. sale, machine rent and advisory
     income = df.loc[df["transaction_category"].isin(["Sale", "Advisory",
         "Machinery Rental"])]
