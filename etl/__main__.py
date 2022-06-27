@@ -5,7 +5,7 @@ import logging
 
 # extract module
 from extract import get_sale, get_machine_rent, get_advisory, get_purchase, \
-    get_machine_purchase, get_processing, get_expense
+    get_machine_purchase, get_processing, get_expense, get_user
 
 # transform module
 from module_transform import transform_sale, transform_advisory, transform_expense, \
@@ -64,6 +64,7 @@ if __name__ == "__main__":
     processing = get_processing(engine)
     machine_purchase = get_machine_purchase(engine)
     expense = get_expense(engine)
+    user = get_user(engine)
 
     # transform datasets
     logging.info("Transforming dataset")
@@ -80,3 +81,5 @@ if __name__ == "__main__":
     
     # find data anomaly and filter the anomalous data
     main_df = master_transform(df)
+    main_df.to_csv("main_df.csv", index=False)
+    user.to_csv("user.csv", index=False)
