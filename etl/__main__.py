@@ -15,8 +15,8 @@ from module_transform import denormalize
 from master_transform import master_transform
 
 # database toolkit
-from sqlalchemy import create_engine, MetaData, inspect, Table, Column, Integer, \
-    String, Date, Numeric, extract
+from sqlalchemy import create_engine, inspect
+# MetaData, Table, Column, Integer, String, Date, Numeric, extract
 from sqlalchemy.engine.url import URL
 from sqlalchemy.sql import select
 
