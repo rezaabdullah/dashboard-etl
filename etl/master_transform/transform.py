@@ -64,4 +64,4 @@ def master_transform(df):
     # append expenditure with income
     df = pd.concat([income, expenditure], sort=False, ignore_index=True)
 
-    df.to_csv("main_data.csv", index=False)
+    return df
