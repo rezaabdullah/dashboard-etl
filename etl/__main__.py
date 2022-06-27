@@ -13,6 +13,7 @@ from module_transform import transform_sale, transform_advisory, transform_expen
     transform_purchase, transform_user
 from module_transform import denormalize
 from master_transform import master_transform
+from master_transform import compile_data
 
 # database toolkit
 from sqlalchemy import create_engine, inspect
@@ -82,3 +83,6 @@ if __name__ == "__main__":
     
     # find data anomaly and filter the anomalous data
     main_df = master_transform(df)
+    compile_data(main_df, user)
+    main_df.to_csv("main.csv", index=False)
+    user.to_csv("user.csv", index=False)
