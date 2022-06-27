@@ -83,6 +83,6 @@ if __name__ == "__main__":
     
     # find data anomaly and filter the anomalous data
     main_df = master_transform(df)
-    compile_data(main_df, user)
-    main_df.to_csv("main.csv", index=False)
-    user.to_csv("user.csv", index=False)
+    # compile_data(main_df, user)
+    # main_df.to_csv("main.csv", index=False)
+    # user.to_csv("user.csv", index=False)

@@ -82,10 +82,7 @@ def compile_data(main_df, user_df):
     user_main=main_df.loc[:, ["country_name", "parent_name", "user_region", "user_id",
         "user_name", "user_type"]]
     user_main.drop_duplicates(inplace=True)
-    user_main.to_csv("user_main.csv", index=False)
-
-    user_join = user_main.join(user_df, on="user_id", how="left") \
-        [["country_name", "parent_name", "user_region", "user_id", "user_name", "user_type",
-        "latitude", "longitude", "status"]]
+    user_join = user_main.merge(user_df[["user_id", "user_name", "latitude",
+        "longitude", "status", "dropout_at"]], on="user_id", how="left")
     user_join.to_csv("user_join.csv", index=False)
     
