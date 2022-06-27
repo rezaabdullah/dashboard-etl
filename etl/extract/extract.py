@@ -43,7 +43,7 @@ def get_machine_rent(engine):
     """
     read gds_machine_rent_transactions table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: machine_rent dataframe
     """
     
     try:
@@ -74,7 +74,7 @@ def get_advisory(engine):
     """
     read advisory table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: advisory dataframe
     """
     try:
         with engine.connect() as conn:
@@ -102,7 +102,7 @@ def get_purchase(engine):
     """
     read purchase table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: purchase dataframe
     """
     try:
         with engine.connect() as conn:
@@ -133,7 +133,7 @@ def get_processing(engine):
     """
     read processing table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: processing dataframe
     """
     try:
         with engine.connect() as conn:
@@ -161,7 +161,7 @@ def get_machine_purchase(engine):
     """
     read machine_purchase table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: machine_purchase dataframe
     """
     try:
         with engine.connect() as conn:
@@ -191,7 +191,7 @@ def get_expense(engine):
     """
     read expense table from sql database and returns df
     :param engine: SQLAlchemy engine object
-    :return df: sale dataframe
+    :return df: expense dataframe
     """
     try:
         with engine.connect() as conn:
@@ -213,3 +213,23 @@ def get_expense(engine):
         logging.error(e)
         
     return df
+
+# extract user information
+def get_user(engine):
+    """
+    extract user information from the sql database and return df
+    :param engine: SQLAlchemy engine object
+    :return df: user dataframe
+    """
+    try:
+        with engine.connect() as conn:
+            query = """
+                SELECT distinct *
+                FROM gds_database.gds_users_information;
+                """
+            df = pd.read_sql(query, conn)
+    except Exception as e:
+        logging.error(e)
+        
+    return df
+    
