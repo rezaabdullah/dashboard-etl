@@ -13,13 +13,14 @@ from module_transform import transform_sale, transform_advisory, transform_expen
     transform_purchase, transform_user
 from module_transform import denormalize
 from master_transform import master_transform
-from master_transform import compile_data
+from master_transform import master_data_compiler
 
 # database toolkit
 from sqlalchemy import create_engine, inspect
 # MetaData, Table, Column, Integer, String, Date, Numeric, extract
 from sqlalchemy.engine.url import URL
-from sqlalchemy.sql import select
+# from sqlalchemy.sql import select
+import pandas as pd
 
 # load environment variables
 env_path = Path("./.env")
@@ -54,35 +55,38 @@ def connect_db():
 
 if __name__ == "__main__":
     # connect to the database
-    engine = connect_db()
+    # # engine = connect_db()
 
-    # extracting dataset
-    logging.info("Extracting dataset")
-    sale = get_sale(engine)
-    machine_rent = get_machine_rent(engine)
-    advisory = get_advisory(engine)
-    purchase = get_purchase(engine)
-    processing = get_processing(engine)
-    machine_purchase = get_machine_purchase(engine)
-    expense = get_expense(engine)
-    user = get_user(engine)
+    # # # extracting dataset
+    # # logging.info("Extracting dataset")
+    # # sale = get_sale(engine)
+    # # machine_rent = get_machine_rent(engine)
+    # # advisory = get_advisory(engine)
+    # # purchase = get_purchase(engine)
+    # # processing = get_processing(engine)
+    # # machine_purchase = get_machine_purchase(engine)
+    # # expense = get_expense(engine)
+    # # user = get_user(engine)
 
-    # transform datasets
-    logging.info("Transforming dataset")
-    sale = transform_sale(sale)
-    machine_rent = transform_machine_rent(machine_rent)
-    advisory = transform_advisory(advisory)
-    purchase = transform_purchase(purchase)
-    processing = transform_processing(processing)
-    machine_purchase = transform_machine_purchase(machine_purchase)
-    expense = transform_expense(expense)
-    user = transform_user(user)
+    # # # transform datasets
+    # # logging.info("Transforming dataset")
+    # # sale = transform_sale(sale)
+    # # machine_rent = transform_machine_rent(machine_rent)
+    # # advisory = transform_advisory(advisory)
+    # # purchase = transform_purchase(purchase)
+    # # processing = transform_processing(processing)
+    # # machine_purchase = transform_machine_purchase(machine_purchase)
+    # # expense = transform_expense(expense)
+    # # user = transform_user(user)
 
-    # denormalize dataset
-    df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    # # # denormalize dataset
+    # # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
     
-    # find data anomaly and filter the anomalous data
-    main_df = master_transform(df)
-    # compile_data(main_df, user)
-    # main_df.to_csv("main.csv", index=False)
+    # # # find data anomaly and filter the anomalous data
+    # # main_df = master_transform(df)
+    # main_df.to_csv("main_df.csv", index=False)
     # user.to_csv("user.csv", index=False)
+    # match user_name
+    main_df = pd.read_csv("main_df.csv")
+    user = pd.read_csv("user.csv")
+    main_df = master_data_compiler(main_df, user)
