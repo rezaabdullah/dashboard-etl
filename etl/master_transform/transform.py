@@ -1,4 +1,5 @@
 import pandas as pd
+from fuzzywuzzy import fuzz
 
 # normalize dataset for granular analysis
 def master_transform(df):
@@ -71,18 +72,47 @@ def master_transform(df):
 
     return df
 
+# defining a function to return the match and similarity score of the fuzz.ratio() scorer.
+# the function will take in a term(name), list of terms(list_names), and a minimum
+# similarity score(min_score) to return the match.
+def similarity_score(name, list, min_score=0):
+    max_score = -1
+    max_name = ''
+    for x in list:
+        score = fuzz.ratio(name, x)
+        if (score > min_score) & (score > max_score):
+            max_name = x
+            max_score = score
+    return (max_name, max_score)
+
 # join user dataset with master dataset
-def compile_data(main_df, user_df):
+def master_data_compiler(main_df, user_df):
     """
     join two dataframe and create a unified dataset
     :param main_df: master dataset
     :param user_df: user dataset
     :return df: joined dataset
     """
-    user_main=main_df.loc[:, ["country_name", "parent_name", "user_region", "user_id",
-        "user_name", "user_type"]]
-    user_main.drop_duplicates(inplace=True)
-    user_join = user_main.merge(user_df[["user_id", "user_name", "latitude",
-        "longitude", "status", "dropout_at"]], on="user_id", how="left")
-    user_join.to_csv("user_join.csv", index=False)
-    
+    # find similar user_name from user dataset and update the user_name in main
+    # dataset
+    target_user_name=list(main_df.user_name.unique())
+    source_user_name=list(user_df.user_name.unique())
+
+    # for loop to create a list of tuples with the first value being the name from
+    # the first dataframe (name to replace) and the second value from the second
+    # dataframe (string replacing the name value). Then, casting the list of tuples
+    # as a dictionary.
+    names = []
+    for x in target_user_name:
+        match = similarity_score(x, source_user_name, 75)
+        if match[1] >= 80:
+            name = (str(x), str(match[0]))
+            names.append(name)
+    name_dict = dict(names)
+    main_df.user_name = main_df.user_name.replace(name_dict)
+
+    # join user dataset with main dataset
+    main_df = main_df.merge(user_df[["user_id", "latitude", "longitude", "status",
+        "dropout_at"]], on="user_id", how="left")
+
+    return main_df
