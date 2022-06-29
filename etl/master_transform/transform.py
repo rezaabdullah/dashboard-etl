@@ -116,3 +116,49 @@ def master_data_compiler(main_df, user_df):
         "dropout_at"]], on="user_id", how="left")
 
     return main_df
+
+# find anomaly data
+def anomaly(df):
+    """
+    identify and filter anomalies
+    :param df: main dataset
+    :return correct_df: correct dataset
+    :return anomaly_df: anomaly dataset
+    """
+    transaction_group = df.groupby(["transaction_category", "transaction_id"]).agg(
+        revenue_usd=("revenue_usd", "sum"),
+        expenditure_usd=("expenditure_usd", "sum")).reset_index()
+
+    anomaly = transaction_group.loc[((transaction_group["revenue_usd"] > 10000) |
+        (transaction_group["expenditure_usd"] > 10000))]
+    
+    # extract clean dataset
+    # select columns that are needed for filtering
+    anomaly_index = anomaly.loc[:, ["transaction_category", "transaction_id"]]
+    keys = list(anomaly_index.columns.values)
+    # set index of anomalies
+    anomaly_index = anomaly_index.set_index(keys).index
+    # set index of main dataset
+    main_index=df.set_index(keys).index
+    # exclude anomaly indexes from main dataset
+    clean_df = df[~main_index.isin(anomaly_index)]
+    clean_df.to_csv("clean_df.csv", index=False)
+
+    # optimized version for clean dataset
+    anomaly_column = anomaly.loc[:, ["transaction_category", "transaction_id"]]
+    anomaly_column["marker"] = "dummy"
+    clean_df_join = df.merge(anomaly_column, on=["transaction_category", "transaction_id"],
+        how="left")
+    # extract desired columns where marker is NaN
+    clean_df_join = clean_df_join[pd.isnull(clean_df_join["marker"])][df.columns]
+    clean_df_join.to_csv("clean_df_join.csv", index=False)
+
+    # extract anomaly dataset
+    anomaly = df.merge(anomaly, on=["transaction_category", "transaction_id"], how="inner")
+    anomaly.drop(columns=["revenue_usd_y", "expenditure_usd_y"], inplace=True)
+    anomaly.rename(columns={"revenue_usd_x": "revenue_usd",
+        "expenditure_usd_x":"expenditure_usd"}, inplace=True)
+
+    anomaly.to_csv("anomaly.csv", index=False)
+    
+    # print(anomaly_index.head())
