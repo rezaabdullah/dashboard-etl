@@ -133,16 +133,16 @@ def anomaly(df):
         (transaction_group["expenditure_usd"] > 10000))]
     
     # extract clean dataset
-    # select columns that are needed for filtering
-    anomaly_index = anomaly.loc[:, ["transaction_category", "transaction_id"]]
-    keys = list(anomaly_index.columns.values)
-    # set index of anomalies
-    anomaly_index = anomaly_index.set_index(keys).index
-    # set index of main dataset
-    main_index=df.set_index(keys).index
-    # exclude anomaly indexes from main dataset
-    clean_df = df[~main_index.isin(anomaly_index)]
-    clean_df.to_csv("clean_df.csv", index=False)
+    # # select columns that are needed for filtering
+    # anomaly_index = anomaly.loc[:, ["transaction_category", "transaction_id"]]
+    # keys = list(anomaly_index.columns.values)
+    # # set index of anomalies
+    # anomaly_index = anomaly_index.set_index(keys).index
+    # # set index of main dataset
+    # main_index=df.set_index(keys).index
+    # # exclude anomaly indexes from main dataset
+    # clean_df = df[~main_index.isin(anomaly_index)]
+    # clean_df.to_csv("clean_df.csv", index=False)
 
     # optimized version for clean dataset
     anomaly_column = anomaly.loc[:, ["transaction_category", "transaction_id"]]
@@ -160,5 +160,3 @@ def anomaly(df):
         "expenditure_usd_x":"expenditure_usd"}, inplace=True)
 
     anomaly.to_csv("anomaly.csv", index=False)
-    
-    # print(anomaly_index.head())
