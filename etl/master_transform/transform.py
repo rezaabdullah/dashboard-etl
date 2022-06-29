@@ -151,7 +151,6 @@ def anomaly(df):
         how="left")
     # extract desired columns where marker is NaN
     clean_df_join = clean_df_join[pd.isnull(clean_df_join["marker"])][df.columns]
-    clean_df_join.to_csv("clean_df_join.csv", index=False)
 
     # extract anomaly dataset
     anomaly = df.merge(anomaly, on=["transaction_category", "transaction_id"], how="inner")
@@ -159,4 +158,4 @@ def anomaly(df):
     anomaly.rename(columns={"revenue_usd_x": "revenue_usd",
         "expenditure_usd_x":"expenditure_usd"}, inplace=True)
 
-    anomaly.to_csv("anomaly.csv", index=False)
+    return clean_df_join, anomaly

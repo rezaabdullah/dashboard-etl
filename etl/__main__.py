@@ -55,42 +55,40 @@ def connect_db():
         logging.error(e)
 
 if __name__ == "__main__":
-    # # connect to the database
-    # engine = connect_db()
+    # connect to the database
+    engine = connect_db()
 
-    # # extracting dataset
-    # logging.info("Extracting dataset")
-    # sale = get_sale(engine)
-    # machine_rent = get_machine_rent(engine)
-    # advisory = get_advisory(engine)
-    # purchase = get_purchase(engine)
-    # processing = get_processing(engine)
-    # machine_purchase = get_machine_purchase(engine)
-    # expense = get_expense(engine)
-    # user = get_user(engine)
+    # extracting dataset
+    logging.info("Extracting dataset")
+    sale = get_sale(engine)
+    machine_rent = get_machine_rent(engine)
+    advisory = get_advisory(engine)
+    purchase = get_purchase(engine)
+    processing = get_processing(engine)
+    machine_purchase = get_machine_purchase(engine)
+    expense = get_expense(engine)
+    user = get_user(engine)
 
-    # # transform datasets
-    # logging.info("Transforming dataset")
-    # sale = transform_sale(sale)
-    # machine_rent = transform_machine_rent(machine_rent)
-    # advisory = transform_advisory(advisory)
-    # purchase = transform_purchase(purchase)
-    # processing = transform_processing(processing)
-    # machine_purchase = transform_machine_purchase(machine_purchase)
-    # expense = transform_expense(expense)
-    # user = transform_user(user)
+    # transform datasets
+    logging.info("Transforming dataset")
+    sale = transform_sale(sale)
+    machine_rent = transform_machine_rent(machine_rent)
+    advisory = transform_advisory(advisory)
+    purchase = transform_purchase(purchase)
+    processing = transform_processing(processing)
+    machine_purchase = transform_machine_purchase(machine_purchase)
+    expense = transform_expense(expense)
+    user = transform_user(user)
 
-    # # denormalize dataset
-    # df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
+    # denormalize dataset
+    df = denormalize(sale, machine_rent, advisory, purchase, machine_purchase, processing, expense)
     
-    # # find data anomaly and filter the anomalous data
-    # main_df = master_transform(df)
+    # find data anomaly and filter the anomalous data
+    main_df = master_transform(df)
 
-    # # transform and join user data
-    # main_df = master_data_compiler(main_df, user)
+    # transform and join user data
+    main_df = master_data_compiler(main_df, user)
 
-    # main_df.to_csv("main_df.csv", index=False)
-
-    main_df = pd.read_csv("main_df.csv")
-
-    anomaly(main_df)
+    clean_df, anomaly = anomaly(main_df)
+    clean_df.to_csv("clean_df.csv", index=False)
+    anomaly.to_csv("anomaly.csv", index=False)
